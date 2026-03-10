@@ -1,0 +1,35 @@
+{% extends 'my_app/base.html' %}
+
+{% block content %}
+    <div class="stats">
+        <h3>Task Overview</h3>
+        <p><strong>{{ tasks.count }}</strong> total tasks • <strong>{{ completed_count }}</strong> completed</p>
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <a href="{% url 'add_task' %}" class="btn btn-primary">Add New Task</a>
+    </div>
+    
+    {% if tasks %}
+        {% for task in tasks %}
+            <div class="task {% if task.completed %}completed{% endif %}">
+                <div class="task-info">
+                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-date">{{ task.created_at|date:"M d, Y • H:i" }}</div>
+                </div>
+                <div class="task-actions">
+                    {% if not task.completed %}
+                        <a href="{% url 'complete_task' task.id %}" class="btn btn-success">Complete</a>
+                    {% else %}
+                        <span class="completed-badge">Done</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <h3>No tasks yet</h3>
+            <p>Ready to be productive? <a href="{% url 'add_task' %}" class="btn btn-primary">Create your first task</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

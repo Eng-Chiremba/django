@@ -1,0 +1,20 @@
+{% extends 'my_app/base.html' %}
+
+{% block content %}
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2>Create New Task</h2>
+        <p>What would you like to accomplish today?</p>
+    </div>
+    
+    <form method="post" style="max-width: 400px; margin: 0 auto;">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title" class="form-label">Task Title</label>
+            <input type="text" name="title" id="title" class="form-control" placeholder="Enter your task..." required>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <input type="submit" value="Create Task" class="btn btn-success">
+            <a href="{% url 'task_list' %}" class="btn btn-secondary">Back to Tasks</a>
+        </div>
+    </form>
+{% endblock %}
